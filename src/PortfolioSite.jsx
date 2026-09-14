@@ -28,8 +28,8 @@ const NAV_LINKS = [
 ];
 
 const TERMINAL_LINES = [
-  "86% retrieval precision — RAG Notes Q&A eval harness",
-  "8/8 tests green on every push — GitHub Actions CI",
+  "13/13 tests green on every push — GitHub Actions CI",
+  "FAITHFUL matched UNFAITHFUL — judge bug found and fixed",
   "2 live-data defects caught and fixed — ChurnLens",
   "0 API keys needed to reproduce — clone and run",
 ];
@@ -39,23 +39,24 @@ const PROJECTS = [
     tag: "Retrieval · Evals",
     title: "RAG Notes Q&A",
     description:
-      "Question-answering service that answers strictly from an indexed document corpus, and refuses when the corpus doesn't cover the question.",
+      "Question-answering service that answers strictly from an indexed document corpus, and returns nothing when a question shares no vocabulary with the corpus rather than surfacing arbitrary chunks.",
     stack: ["Python", "FastAPI", "ChromaDB", "Docker", "GitHub Actions"],
-    metric: "86%",
-    metricLabel: "retrieval precision",
+    metric: "13",
+    metricLabel: "tests green in CI",
     kind: "Personal project",
     link: "https://github.com/saipratheesh07/rag-notes-qa",
     problem:
-      "Most RAG demos get built once and never measured again — precision is assumed, not proven. I wanted to know if my retrieval was actually good, and prove it with a repeatable number.",
+      "Most RAG demos get built once and never measured again — quality is assumed, not proven. I wanted the evaluation harness in place before optimising the retriever, and to be honest about what its numbers do and don't show.",
     approach: [
-      "Built the evaluation harness before optimising the retriever: 14 answerable questions, a negative test for questions the corpus doesn't cover, and LLM-as-judge faithfulness scoring on generated answers.",
-      "Kept retrieval scoring, ingestion, and the full test suite runnable with no API key, so anyone who clones the repo can reproduce the results.",
-      "Shipped it as a single-command Docker deployment with the index built at image build time.",
+      "Built the evaluation harness before optimising the retriever: 14 answerable questions scored on top-5 retrieval, plus LLM-as-judge faithfulness scoring on generated answers.",
+      "Kept retrieval scoring, ingestion, and the full test suite runnable with no API key, so anyone cloning the repo can reproduce the numbers.",
+      "Shipped it as a single-command Docker deployment, with a .dockerignore added after noticing the build would otherwise have copied the local .env and its API key into the image.",
     ],
     outcome: [
-      "86% retrieval precision (12 of 14) across the answerable questions.",
-      "Refuses off-topic questions, verified by the negative test in the eval set.",
-      "8 automated tests green on every push via CI.",
+      "Retrieval precision is 14/14 on the answerable questions. The set was written alongside the system and top-5 over a small corpus is a lenient bar, so it's treated as a regression smoke test, not a benchmark.",
+      "Found and fixed a substring bug in the LLM-as-judge scorer: the check for FAITHFUL also matched UNFAITHFUL, so every answer had been scoring as faithful and the negative test could never fail.",
+      "13 automated tests green on every push via CI.",
+      "Next: expand the eval set to roughly 50 questions, written before inspecting retrieval output.",
     ],
   },
   {
@@ -109,7 +110,7 @@ const SKILLS = [
   { category: "Practices", items: ["Idempotent ingestion", "Schema design", "Eval harness design", "Cost-aware model routing"] },
 ];
 
-const SPOKEN_LANGUAGES = ["English", "Tamil", "Hindi", "Kannada"];
+const SPOKEN_LANGUAGES = ["English", "Kannada", "Hindi", "Tamil"];
 
 const EXPERIENCE = [
   {
@@ -470,7 +471,7 @@ function TerminalTicker() {
   );
 }
 
-function Ring({ percent = 86, label = "retrieval precision" }) {
+function Ring({ percent, display = `${percent}%`, label }) {
   const size = 128;
   const stroke = 8;
   const r = (size - stroke) / 2;
@@ -500,7 +501,7 @@ function Ring({ percent = 86, label = "retrieval precision" }) {
       </svg>
       <div className="-mt-[76px] flex flex-col items-center">
         <span style={{ fontFamily: "var(--font-display)", color: "var(--text)" }} className="text-[26px] font-semibold">
-          {percent}%
+          {display}
         </span>
       </div>
       <span style={{ fontFamily: "var(--font-mono)", color: "var(--dim)" }} className="mt-3 text-[10.5px] uppercase tracking-[0.1em] text-center">
@@ -587,7 +588,7 @@ function Hero() {
 
         <Reveal delay={200} className="hidden lg:flex justify-center">
           <div style={{ background: "var(--surface)", borderColor: "var(--border)" }} className="rounded-2xl border p-8">
-            <Ring percent={86} label="retrieval precision" />
+            <Ring percent={100} display="13/13" label="tests green in CI" />
           </div>
         </Reveal>
       </div>
