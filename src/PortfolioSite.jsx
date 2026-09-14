@@ -1,23 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 
 /**
- * Sai Pratheesh — Portfolio
+ * Sai Pratheesh: Portfolio
  * Design system pulled from SPLIT (the training tracker): dark, premium,
  * data-forward. CSS custom properties as design tokens, exactly like SPLIT's
- * token-based approach. No animation library — scroll reveals run on
+ * token-based approach. No animation library; scroll reveals run on
  * IntersectionObserver + CSS transitions so this renders anywhere, no
  * dependency install required.
  */
 
 // ---------------------------------------------------------------------------
-// Config — edit before deploying
+// Config: edit before deploying
 // ---------------------------------------------------------------------------
 const EMAIL = "saipratheesh15@gmail.com";
 const PHONE = "+918618012764";
 const PHONE_DISPLAY = "+91 86180 12764";
 const LINKEDIN_URL = "https://www.linkedin.com/in/sai-pratheesh-0b854a343";
 const GITHUB_URL = "https://github.com/saipratheesh07";
-const RESUME_URL = "/Sai_Pratheesh_Resume.pdf"; // hosted resume — matches the file provided alongside this component
+const RESUME_URL = "/Sai_Pratheesh_Resume.pdf"; // hosted resume, matches the file provided alongside this component
 
 const NAV_LINKS = [
   { label: "About", href: "#about" },
@@ -28,10 +28,10 @@ const NAV_LINKS = [
 ];
 
 const TERMINAL_LINES = [
-  "13/13 tests green on every push — GitHub Actions CI",
-  "FAITHFUL matched UNFAITHFUL — judge bug found and fixed",
-  "2 live-data defects caught and fixed — ChurnLens",
-  "0 API keys needed to reproduce — clone and run",
+  "13/13 tests green on every push in GitHub Actions CI",
+  "FAITHFUL matched UNFAITHFUL: judge bug found and fixed",
+  "2 live-data defects caught and fixed in ChurnLens",
+  "0 API keys needed to reproduce: clone and run",
 ];
 
 const PROJECTS = [
@@ -46,7 +46,7 @@ const PROJECTS = [
     kind: "Personal project",
     link: "https://github.com/saipratheesh07/rag-notes-qa",
     problem:
-      "Most RAG demos get built once and never measured again — quality is assumed, not proven. I wanted the evaluation harness in place before optimising the retriever, and to be honest about what its numbers do and don't show.",
+      "Most RAG demos get built once and never measured again, so quality is assumed, not proven. I wanted the evaluation harness in place before optimising the retriever, and to be honest about what its numbers do and don't show.",
     approach: [
       "Built the evaluation harness before optimising the retriever: 14 answerable questions scored on top-5 retrieval, plus LLM-as-judge faithfulness scoring on generated answers.",
       "Kept retrieval scoring, ingestion, and the full test suite runnable with no API key, so anyone cloning the repo can reproduce the numbers.",
@@ -90,7 +90,7 @@ const PROJECTS = [
     metricLabel: "pipeline stages",
     kind: "Client project",
     problem:
-      "Befit, a D2C fitness brand, needed a steady flow of SEO content with no in-house content team — and one-off articles wouldn't solve that.",
+      "Befit, a D2C fitness brand, needed a steady flow of SEO content with no in-house content team, and one-off articles wouldn't solve that.",
     approach: [
       "Split the work across a multi-agent pipeline: keyword research, drafting, editing, and publishing straight to WordPress.",
       "Enforced the brand's voice rules at the editing stage, so every draft is checked against them before it goes live.",
@@ -128,7 +128,7 @@ const EXPERIENCE = [
 ];
 
 // ---------------------------------------------------------------------------
-// Design tokens — same approach SPLIT uses: CSS custom properties, one place
+// Design tokens: same approach SPLIT uses: CSS custom properties, one place
 // ---------------------------------------------------------------------------
 const TOKENS = `
   :root {
@@ -173,7 +173,7 @@ function useGoogleFonts() {
 }
 
 // ---------------------------------------------------------------------------
-// Scroll reveal — IntersectionObserver instead of a motion library
+// Scroll reveal: IntersectionObserver instead of a motion library
 // ---------------------------------------------------------------------------
 function Reveal({ children, delay = 0, className = "", as: Tag = "div" }) {
   const ref = useRef(null);
@@ -429,7 +429,7 @@ function Nav() {
 }
 
 // ---------------------------------------------------------------------------
-// Hero — signature: a data readout, same instinct as SPLIT's dashboard ring
+// Hero signature: a data readout, same instinct as SPLIT's dashboard ring
 // ---------------------------------------------------------------------------
 function TerminalTicker() {
   const [lineIndex, setLineIndex] = useState(0);
@@ -607,12 +607,12 @@ function About() {
         <Reveal delay={80}>
           <p style={{ fontFamily: "var(--font-display)", color: "var(--text)" }} className="text-[22px] md:text-[28px] leading-[1.4] max-w-2xl">
             Final-year Information Science and Engineering student at NMIT Bengaluru, looking for
-            forward deployed, solutions or applied AI engineering work — the kind where the job is
+            forward deployed, solutions or applied AI engineering work, where the job is
             getting something working in front of a customer.
           </p>
           <p style={{ fontFamily: "var(--font-body)", color: "var(--muted)" }} className="mt-6 text-[15px] max-w-xl leading-relaxed">
             Outside of shipping code, I train as a hybrid athlete and grew up playing
-            competitive cricket — habits that mostly explain why I default to measuring things.
+            competitive cricket. Those habits mostly explain why I default to measuring things.
           </p>
           <p style={{ fontFamily: "var(--font-mono)", color: "var(--dim)" }} className="mt-6 text-[12px] tracking-[0.04em]">
             Languages: {SPOKEN_LANGUAGES.join(" · ")}
